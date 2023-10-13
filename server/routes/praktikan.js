@@ -4,6 +4,8 @@ const { verifyToken } = require('../middleware/authentication')
 
 praktikanRoute.get("/data", verifyToken, PraktikanController.getPraktikan);
 
+praktikanRoute.post('/login', PraktikanController.login)
+
 praktikanRoute.post("/add", PraktikanController.add);
 
 praktikanRoute.delete("/delete/:id", verifyToken, PraktikanController.delete);

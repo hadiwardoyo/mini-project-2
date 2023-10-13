@@ -1,4 +1,6 @@
 "use strict";
+
+const { encryptPWD } = require('../helper/bcrypt')
 const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class praktikan extends Model {
@@ -17,7 +19,7 @@ module.exports = (sequelize, DataTypes) => {
   praktikan.init(
     {
       nim: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.STRING,
         validate: {
           notEmpty: {
             message: "NIM cannot be empty",
@@ -71,6 +73,7 @@ module.exports = (sequelize, DataTypes) => {
       hooks: {
         beforeCreate: function (praktikan, option) {
           praktikan.status = "aktif";
+          praktikan.nim = encryptPWD(praktikan.nim)
         },
       },
       sequelize,

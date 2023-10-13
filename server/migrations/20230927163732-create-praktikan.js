@@ -11,7 +11,7 @@ module.exports = {
       },
       nim: {
         allowNull: false,
-        type: Sequelize.INTEGER,
+        type: Sequelize.STRING,
       },
       nama: {
         allowNull: false,

@@ -1,15 +1,12 @@
 require('dotenv').config()
 
 const bcrypt = require('bcrypt')
-
+const SALT = 10
 
 module.exports.encryptPWD = password => {
-    try {
-        let salt = bcrypt.genSaltSync(process.env.SALT)
-        return bcrypt.hashSync(password, salt)
-    } catch (e) {
-        return e
-    }
+    const salt = bcrypt.genSaltSync(SALT)
+    return bcrypt.hashSync(String(password), 10)
+
 }
 
 module.exports.decryptPWD = (password, hashPWD) => {

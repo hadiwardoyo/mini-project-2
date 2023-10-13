@@ -1,5 +1,6 @@
 const { praktikan, mataPraktikum, mataKuliah, jurusan } = require("../models");
 const { generateToken } = require('../helper/jwt')
+const { decryptPWD } = require('../helper/bcrypt')
 
 class PraktikanController {
   static async getPraktikan(req, res) {
@@ -15,9 +16,7 @@ class PraktikanController {
 
   static async login(req, res) {
     try {
-      const { nim, nama, confNim } = req.body
-
-      if (nim !== confNim) return res.status(400).json({ message: 'mohon masukan nim dengan benar' })
+      const { nim, nama } = req.body
 
       const found = await praktikan.findOne({
         where: {
@@ -25,9 +24,14 @@ class PraktikanController {
         }
       })
 
+      console.log(found.dataValues.id)
+
       if (!found) return res.status(404).json({ message: 'praktikan tidak ditemukan' })
 
-      const access_token = generateToken(found)
+      const match = decryptPWD(nim, found.nim)
+      if (!match) return res.status(400).json({ message: 'mohon masukan nim dengan benar' })
+
+      const access_token = generateToken(found.dataValues)
       res.status(200).json({ access_token: access_token })
     } catch (e) {
       res.status(500).json(e)
@@ -36,19 +40,23 @@ class PraktikanController {
 
   static async add(req, res) {
     try {
-      const { nim, nama, jurusan, fakultas, tahun_masuk } = req.body;
+      const { nim, nama, jurusan, fakultas, tahun_masuk, role } = req.body;
+
       let results = await praktikan.create({
         nim,
         nama,
         jurusan,
         fakultas,
         tahun_masuk,
+        role
       });
-      res.redirect("/praktikan");
+
+      res.status(200).json({ message: 'praktikan berhasil ditambahkan' })
     } catch (err) {
       res.json(err);
     }
   }
+
   static async delete(req, res) {
     try {
       let id = req.params.id;
