@@ -24,7 +24,7 @@ class PraktikanController {
         }
       })
 
-      console.log(found.dataValues.id)
+      // console.log(found.dataValues.id)
 
       if (!found) return res.status(404).json({ message: 'praktikan tidak ditemukan' })
 
@@ -32,11 +32,23 @@ class PraktikanController {
       if (!match) return res.status(400).json({ message: 'mohon masukan nim dengan benar' })
 
       const access_token = generateToken(found.dataValues)
+      res.cookie('token', access_token)
       res.status(200).json({ access_token: access_token })
     } catch (e) {
       res.status(500).json(e)
     }
   }
+
+  static async logout(req, res) {
+    try {
+      res.clearCookie('token')
+      res.status(200).json({ message: 'logout successfully' })
+    } catch (e) {
+      res.status(500).json(e)
+    }
+  }
+
+
 
   static async add(req, res) {
     try {
