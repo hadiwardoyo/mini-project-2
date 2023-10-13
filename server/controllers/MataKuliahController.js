@@ -12,27 +12,6 @@ class MataKuliahController {
     }
   }
 
-  static async view(req, res) {
-    try {
-      let matkuls = await mataKuliah.findAll({
-        order: [["id", "asc"]],
-      });
-      res.render("mataKuliah/index.ejs", { mataKuliah: matkuls });
-    } catch (err) {
-      res.json(err);
-    }
-  }
-
-  static async addPage(req, res) {
-    try {
-      let jurusans = await jurusan.findAll({
-        order: [["id", "asc"]],
-      });
-      res.render("mataKuliah/addPage.ejs", { jurusan: jurusans });
-    } catch (err) {
-      res.json(err);
-    }
-  }
   static async add(req, res) {
     try {
       const { nama, jurusan, jumlah_peserta } = req.body;
@@ -61,22 +40,6 @@ class MataKuliahController {
     }
   }
 
-  static async updatePage(req, res) {
-    try {
-      const id = +req.params.id;
-      let jurusans = await jurusan.findAll({
-        order: [["id", "asc"]],
-      });
-      let matkuls = await mataKuliah.findByPk(id);
-      res.render("mataKuliah/editPage.ejs", {
-        jurusan: jurusans,
-        mataKuliah: matkuls,
-      });
-    } catch (err) {
-      res.json(err);
-    }
-  }
-
   static async update(req, res) {
     try {
       let id = req.params.id;
@@ -94,8 +57,8 @@ class MataKuliahController {
       results[0] === 1
         ? res.redirect("/mataKuliah")
         : res.json({
-            message: `Mata Kuliah id: ${id} does not exist`,
-          });
+          message: `Mata Kuliah id: ${id} does not exist`,
+        });
     } catch (err) {
       res.json(err);
     }
