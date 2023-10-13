@@ -1,4 +1,5 @@
 const { praktikan, mataPraktikum, mataKuliah, jurusan } = require("../models");
+const { generateToken } = require('../helper/jwt')
 
 class PraktikanController {
   static async getPraktikan(req, res) {
@@ -11,28 +12,28 @@ class PraktikanController {
       res.json(err);
     }
   }
-  static async view(req, res) {
-    try {
-      let praktikans = await praktikan.findAll({
-        order: [["id", "asc"]],
-      });
 
-      res.render("praktikan/index.ejs", { praktikan: praktikans });
-    } catch (err) {
-      res.json(err);
+  static async login(req, res) {
+    try {
+      const { nim, nama, confNim } = req.body
+
+      if (nim !== confNim) return res.status(400).json({ message: 'mohon masukan nim dengan benar' })
+
+      const found = await praktikan.findOne({
+        where: {
+          nama: nama
+        }
+      })
+
+      if (!found) return res.status(404).json({ message: 'praktikan tidak ditemukan' })
+
+      const access_token = generateToken(found)
+      res.status(200).json({ access_token: access_token })
+    } catch (e) {
+      res.status(500).json(e)
     }
   }
 
-  static async addPage(req, res) {
-    try {
-      let jurusans = await jurusan.findAll({
-        order: [["id", "asc"]],
-      });
-      res.render("praktikan/addPage.ejs", { jurusan: jurusans });
-    } catch (err) {
-      res.json(err);
-    }
-  }
   static async add(req, res) {
     try {
       const { nim, nama, jurusan, fakultas, tahun_masuk } = req.body;
@@ -66,22 +67,6 @@ class PraktikanController {
     }
   }
 
-  static async updatePage(req, res) {
-    try {
-      const id = +req.params.id;
-      let jurusans = await jurusan.findAll({
-        order: [["id", "asc"]],
-      });
-      let praktikans = await praktikan.findByPk(id);
-      res.render("praktikan/editPage.ejs", {
-        jurusan: jurusans,
-        praktikan: praktikans,
-      });
-    } catch (err) {
-      res.json(err);
-    }
-  }
-
   static async update(req, res) {
     try {
       let id = req.params.id;
@@ -100,8 +85,8 @@ class PraktikanController {
       results[0] === 1
         ? res.redirect("/praktikan")
         : res.json({
-            message: `praktikan id: ${id} does not exist`,
-          });
+          message: `praktikan id: ${id} does not exist`,
+        });
     } catch (err) {
       res.json(err);
     }
