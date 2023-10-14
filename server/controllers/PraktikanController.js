@@ -1,6 +1,6 @@
 const { praktikan, mataPraktikum, mataKuliah, jurusan } = require("../models");
-const { generateToken } = require('../helper/jwt')
-const { decryptPWD } = require('../helper/bcrypt')
+const { generateToken } = require("../helper/jwt");
+const { decryptPWD } = require("../helper/bcrypt");
 
 class PraktikanController {
   static async getPraktikan(req, res) {
@@ -16,39 +16,41 @@ class PraktikanController {
 
   static async login(req, res) {
     try {
-      const { nim, nama } = req.body
+      const { nim, nama } = req.body;
 
       const found = await praktikan.findOne({
         where: {
-          nama: nama
-        }
-      })
+          nama: nama,
+        },
+      });
 
       // console.log(found.dataValues.id)
 
-      if (!found) return res.status(404).json({ message: 'praktikan tidak ditemukan' })
+      if (!found)
+        return res.status(404).json({ message: "praktikan tidak ditemukan" });
 
-      const match = decryptPWD(nim, found.nim)
-      if (!match) return res.status(400).json({ message: 'mohon masukan nim dengan benar' })
+      const match = decryptPWD(nim, found.nim);
+      if (!match)
+        return res
+          .status(400)
+          .json({ message: "mohon masukan nim dengan benar" });
 
-      const access_token = generateToken(found.dataValues)
-      res.cookie('token', access_token)
-      res.status(200).json({ access_token: access_token })
+      const access_token = generateToken(found.dataValues);
+      res.cookie("token", access_token);
+      res.status(200).json({ access_token: access_token });
     } catch (e) {
-      res.status(500).json(e)
+      res.status(500).json(e);
     }
   }
 
   static async logout(req, res) {
     try {
-      res.clearCookie('token')
-      res.status(200).json({ message: 'logout successfully' })
+      res.clearCookie("token");
+      res.status(200).json({ message: "logout successfully" });
     } catch (e) {
-      res.status(500).json(e)
+      res.status(500).json(e);
     }
   }
-
-
 
   static async add(req, res) {
     try {
@@ -60,10 +62,10 @@ class PraktikanController {
         jurusan,
         fakultas,
         tahun_masuk,
-        role
+        role,
       });
 
-      res.status(200).json({ message: 'praktikan berhasil ditambahkan' })
+      res.status(200).json({ message: "praktikan berhasil ditambahkan" });
     } catch (err) {
       res.json(err);
     }
@@ -105,8 +107,8 @@ class PraktikanController {
       results[0] === 1
         ? res.redirect("/praktikan")
         : res.json({
-          message: `praktikan id: ${id} does not exist`,
-        });
+            message: `praktikan id: ${id} does not exist`,
+          });
     } catch (err) {
       res.json(err);
     }
