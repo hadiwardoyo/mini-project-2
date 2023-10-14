@@ -65,7 +65,7 @@ class PraktikanController {
         role,
       });
 
-      res.status(200).json({ message: "praktikan berhasil ditambahkan" });
+      res.status(201).json({ message: "praktikan berhasil ditambahkan" });
     } catch (err) {
       res.json(err);
     }
@@ -82,7 +82,7 @@ class PraktikanController {
       });
 
       praktikans === 1
-        ? res.redirect("/praktikan")
+        ? res.status(200).json({ message: "praktikan berhasil di hapus" })
         : res.json(`${id} not found`);
     } catch (err) {
       res.json(err);
@@ -105,7 +105,7 @@ class PraktikanController {
         { where: { id } }
       );
       results[0] === 1
-        ? res.redirect("/praktikan")
+        ? res.status(200).json({ message: "praktikan berhasil di update" })
         : res.json({
             message: `praktikan id: ${id} does not exist`,
           });
@@ -113,6 +113,7 @@ class PraktikanController {
       res.json(err);
     }
   }
+
   static async viewMatkul(req, res) {
     try {
       let id = +req.params.id;
@@ -135,18 +136,12 @@ class PraktikanController {
           matkuls,
         };
 
-        res.render("praktikan/detail.ejs", {
-          result: resultMatapraktikum,
-          praktikans,
-        });
+        res.status(200).json({ result: resultMatapraktikum, praktikans });
       } else {
         let resultMatapraktikum = {
           matkuls: [],
         };
-        res.render("praktikan/detail.ejs", {
-          result: resultMatapraktikum,
-          praktikans,
-        });
+        res.status(200).json({ result: resultMatapraktikum, praktikans });
       }
     } catch (err) {
       res.json({

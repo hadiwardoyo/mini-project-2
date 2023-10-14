@@ -20,7 +20,7 @@ class MataKuliahController {
         jurusan,
         jumlah_peserta,
       });
-      res.redirect("/mataKuliah");
+      res.status(201).json({ message: 'matkul berhasil di tambahkan' })
     } catch (err) {
       res.json(err);
     }
@@ -34,7 +34,7 @@ class MataKuliahController {
         },
       });
 
-      matkuls === 1 ? res.redirect("/mataKuliah") : res.json(`${id} not found`);
+      matkuls === 1 ? res.status(200).json({ message: 'matkul berhasil di hapus' }) : res.json(`${id} not found`);
     } catch (err) {
       res.json(err);
     }
@@ -55,7 +55,7 @@ class MataKuliahController {
         { where: { id } }
       );
       results[0] === 1
-        ? res.redirect("/mataKuliah")
+        ? res.status(200).json({ message: 'matakul berhasil di update' })
         : res.json({
           message: `Mata Kuliah id: ${id} does not exist`,
         });

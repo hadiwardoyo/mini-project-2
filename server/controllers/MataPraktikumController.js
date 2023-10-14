@@ -12,44 +12,7 @@ class MataPraktikumController {
       res.json(err);
     }
   }
-  static async view(req, res) {
-    try {
-      let mataPraktikums = await mataPraktikum.findAll({
-        order: [["id", "asc"]],
-        include: [mataKuliah, praktikan],
-      });
-      res.render("mataPraktikum/index.ejs", { mataPraktikums });
-    } catch (err) {
-      res.json(err);
-    }
-  }
-  static async addPage(req, res) {
-    try {
-      let idPraktikan = req.params.id;
-      let matkuls = await mataKuliah.findAll({
-        order: [["id", "asc"]],
-      });
-      let kelas = ["A", "B", "C", "D", "E", "F", "G", "H"];
-      let hari = [
-        "Senin",
-        "Selasa",
-        "Rabu",
-        "Kamis",
-        "Jumat",
-        "Sabtu",
-        "Minggu",
-      ];
 
-      res.render("mataPraktikum/addKelas.ejs", {
-        mataKuliah: matkuls,
-        idPraktikan,
-        kelas,
-        hari,
-      });
-    } catch (err) {
-      res.json(err);
-    }
-  }
   static async add(req, res) {
     try {
       let { mataKuliah_id, praktikan_id, kelas, hari, pukul } = req.body;
@@ -71,7 +34,7 @@ class MataPraktikumController {
         { where: { id: mataKuliah_id } }
       );
       // console.log(jumlah_peserta);
-      res.redirect("/praktikan");
+      res.status(200).json({ message: 'berhasil tambahkan matakuliah' })
     } catch (err) {
       res.json(err);
     }
@@ -86,16 +49,15 @@ class MataPraktikumController {
       });
 
       results === 1
-        ? res.redirect("/mataPraktikum")
+        ? res.status(200).json({ message: 'matakuliah berhasil di hapus' })
         : res.json(`${id} not found`);
     } catch (err) {
       res.json(err);
     }
   }
 
-  static async updatePage(req, res) {}
 
-  static async update(req, res) {}
+  static async update(req, res) { }
 }
 
 module.exports = MataPraktikumController;
