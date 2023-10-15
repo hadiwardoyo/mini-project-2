@@ -66,16 +66,23 @@ const deletePraktikan = async (id) => {
   }
 };
 
-const findById = async (cb) => {
+const findById = async (id, cb) => {
   try {
     let praktikan = await instanceAxios({
       method: "GET",
-      url: URL + "/details",
+      url: URL + "/details/" + id,
     });
     cb(praktikan.data);
+    console.log();
   } catch (e) {
-    console.log(e);
+    console.log(e.response);
   }
 };
 
-export { getPraktikans, addPraktikan, editPraktikan, deletePraktikan };
+export {
+  getPraktikans,
+  addPraktikan,
+  editPraktikan,
+  deletePraktikan,
+  findById,
+};

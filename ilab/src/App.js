@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.css";
-import { LoginPage } from "./pages";
-import { MainComponents, Navbar } from "./components";
+import { LoginPage, HomePage } from "./pages";
+import { MainComponents } from "./components";
 
 function App() {
   const [loginStatus, setloginStatus] = useState(false);

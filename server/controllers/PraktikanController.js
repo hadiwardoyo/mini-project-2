@@ -17,10 +17,11 @@ class PraktikanController {
 
   static async getById(req, res) {
     try {
-      let praktikan = await praktikan.findByPk(+req.userData.id)
-      res.status(200).json(praktikan)
+      const id = +req.params.id
+      let result = await praktikan.findByPk(id)
+      res.status(200).json(result)
     } catch (e) {
-      res.status(500).json(e)
+      res.status(500).json({ message: e.message })
     }
   }
 
@@ -84,10 +85,10 @@ class PraktikanController {
   static async delete(req, res) {
     try {
 
-
+      const id = +req.params.id
       let praktikans = await praktikan.destroy({
         where: {
-          id: +req.userData.id,
+          id
         },
       });
 
@@ -101,6 +102,7 @@ class PraktikanController {
 
   static async update(req, res) {
     try {
+      const id = +req.params.id
       const { nim, nama, jurusan, fakultas, tahun_masuk, status } = req.body;
       const hashNim = encryptPWD(nim)
 
@@ -115,7 +117,7 @@ class PraktikanController {
         },
         {
           where: {
-            id: +req.userData.id
+            id
           }
         }
       );
@@ -133,8 +135,9 @@ class PraktikanController {
   static async viewMatkul(req, res) {
     try {
 
+      const id = req.params.id
       let result = await mataPraktikum.findAll({
-        where: { praktikan_id: +req.userData.id },
+        where: { praktikan_id: id },
         include: [praktikan, mataKuliah],
       });
       let praktikans = await praktikan.findByPk(id);

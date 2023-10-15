@@ -1,18 +1,12 @@
-import React, { useState } from "react";
-import { addPraktikan } from "../../fetch/praktikanAxios";
-import { useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { editPraktikan, findById } from "../../fetch/praktikanAxios";
+import { useNavigate, useParams } from "react-router-dom";
 
-const CreatePraktikan = () => {
-  const [form, setForm] = useState({
-    nim: "",
-    nama: "",
-    jurusan: "",
-    fakultas: "",
-    tahun_masuk: "",
-    status: "aktif",
-  });
+const EditPraktikan = () => {
+  const [form, setForm] = useState({});
 
   const navigate = useNavigate();
+  const params = useParams();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -21,8 +15,27 @@ const CreatePraktikan = () => {
     });
   };
 
+  const getInfo = () => {
+    // const { id } = params
+    findById(+params.id, (result) => {
+      setForm({
+        nim: result.nim,
+        nama: result.nama,
+        jurusan: result.fakultas,
+        fakultas: result.fakultas,
+        tahun_masuk: result.tahun_masuk,
+        status: result.status,
+        role: result.role,
+      });
+    });
+  };
+
+  useEffect(() => {
+    getInfo();
+  }, []);
+
   const handleSubmit = () => {
-    addPraktikan(form);
+    editPraktikan(+params.id, form);
     navigate("/praktikan");
   };
 
@@ -34,6 +47,7 @@ const CreatePraktikan = () => {
             Nim
           </label>
           <input
+            value={form.nim}
             onChange={handleChange}
             type="text"
             className="form-control"
@@ -46,6 +60,7 @@ const CreatePraktikan = () => {
             Nama
           </label>
           <input
+            value={form.nama}
             onChange={handleChange}
             type="text"
             className="form-control"
@@ -58,6 +73,8 @@ const CreatePraktikan = () => {
             Jurusan
           </label>
           <input
+            value={form.jurusan}
+            onChange={handleChange}
             type="text"
             className="form-control"
             name="jurusan"
@@ -69,6 +86,7 @@ const CreatePraktikan = () => {
             Fakultas
           </label>
           <input
+            value={form.fakultas}
             onChange={handleChange}
             type="text"
             className="form-control"
@@ -81,8 +99,9 @@ const CreatePraktikan = () => {
             Tahun Masuk
           </label>
           <input
+            value={form.tahun_masuk}
             onChange={handleChange}
-            type="text"
+            type="number"
             className="form-control"
             name="tahun_masuk"
             placeholder="Tahun Masuk"
@@ -93,6 +112,7 @@ const CreatePraktikan = () => {
             Status
           </label>
           <input
+            value={form.status}
             onChange={handleChange}
             type="text"
             className="form-control"
@@ -100,12 +120,25 @@ const CreatePraktikan = () => {
             placeholder="Status"
           />
         </div>
+        <div className="mb-3">
+          <label for="formGroupExampleInput" className="form-label">
+            Role
+          </label>
+          <input
+            value={form.role}
+            onChange={handleChange}
+            type="text"
+            className="form-control"
+            name="role"
+            placeholder="user/admin"
+          />
+        </div>
         <div>
           <button
             onClick={() => handleSubmit()}
             className="btn btn-outline-primary"
           >
-            Tambah Praktikan
+            Simpan Perubahan
           </button>
         </div>
       </div>
@@ -113,4 +146,4 @@ const CreatePraktikan = () => {
   );
 };
 
-export default CreatePraktikan;
+export default EditPraktikan;

@@ -23,6 +23,7 @@ const CreatePraktikan = () => {
     }
 
     const handleSubmit = () => {
+
         addPraktikan(form)
         navigate('/praktikan')
     }
@@ -44,7 +45,9 @@ const CreatePraktikan = () => {
                 </div>
                 <div className="mb-3">
                     <label for="formGroupExampleInput" className="form-label">Jurusan</label>
-                    <input type="text" className="form-control" name='jurusan' placeholder="Masukan Jurusan" />
+                    <input
+                        onChange={handleChange}
+                        type="text" className="form-control" name='jurusan' placeholder="Masukan Jurusan" />
                 </div>
                 <div className="mb-3">
                     <label for="formGroupExampleInput" className="form-label">Fakultas</label>
@@ -56,13 +59,19 @@ const CreatePraktikan = () => {
                     <label for="formGroupExampleInput" className="form-label">Tahun Masuk</label>
                     <input
                         onChange={handleChange}
-                        type="text" className="form-control" name='tahun_masuk' placeholder="Tahun Masuk" />
+                        type="number" className="form-control" name='tahun_masuk' placeholder="Tahun Masuk" />
                 </div>
                 <div className="mb-3">
                     <label for="formGroupExampleInput" className="form-label">Status</label>
                     <input
                         onChange={handleChange}
                         type="text" className="form-control" name='status' placeholder="Status" />
+                </div>
+                <div className="mb-3">
+                    <label for="formGroupExampleInput" className="form-label">Role</label>
+                    <input
+                        onChange={handleChange}
+                        type="text" className="form-control" name='role' placeholder="User" />
                 </div>
                 <div>
                     <button

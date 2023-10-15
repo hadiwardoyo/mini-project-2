@@ -4,19 +4,9 @@ const { verifyToken, isAdmin } = require("../middleware/authentication");
 
 matkulRoute.get("/data", verifyToken, MataKuliahController.getMatkul);
 
-matkulRoute.post("/add", verifyToken, isAdmin, MataKuliahController.add);
+matkulRoute.post("/add", verifyToken, MataKuliahController.add);
 
-matkulRoute.delete(
-  "/delete/:id",
-  verifyToken,
-  isAdmin,
-  MataKuliahController.delete
-);
+matkulRoute.delete("/delete/:id", verifyToken, MataKuliahController.delete);
 
-matkulRoute.put(
-  "/update/:id",
-  verifyToken,
-  isAdmin,
-  MataKuliahController.update
-);
+matkulRoute.put("/update/:id", verifyToken, MataKuliahController.update);
 module.exports = matkulRoute;

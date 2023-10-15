@@ -11,6 +11,8 @@ const LoginPage = (props) => {
     nim: "",
   });
 
+  console.log(form)
+
   const loginUser = async () => {
     try {
       let result = await axios({
@@ -28,7 +30,7 @@ const LoginPage = (props) => {
         title: "Oops...",
         text: "Periksa Kembali nama dan NIM anda!",
       });
-      console.log(err);
+      console.log(err.response);
     }
   };
 
