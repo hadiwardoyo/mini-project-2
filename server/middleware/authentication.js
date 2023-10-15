@@ -8,7 +8,7 @@ module.exports.verifyToken = async (req, res, next) => {
         .status(401)
         .json({ message: "Unauthorize please deliver token" });
     const tokenDecode = decodeToken(access_token);
-    req.useData = tokenDecode;
+    req.userData = tokenDecode;
     next();
   } catch (e) {
     res.status(500).json(e);

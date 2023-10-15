@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.css";
-import { LoginPage, HomePage } from "./pages";
+import { LoginPage } from "./pages";
+import { MainComponents } from "./components";
 
 function App() {
   const [loginStatus, setloginStatus] = useState(false);
@@ -23,10 +24,8 @@ function App() {
       {!loginStatus ? (
         <LoginPage loginCbHandler={loginCbHandler}></LoginPage>
       ) : (
-        <HomePage
-          loginStatus={loginStatus}
-          loginCbHandler={loginCbHandler}
-        ></HomePage>
+        <MainComponents loginStatus={loginStatus}
+          loginCbHandler={loginCbHandler}></MainComponents>
       )}
     </div>
   );

@@ -1,6 +1,7 @@
 const { praktikan, mataPraktikum, mataKuliah, jurusan } = require("../models");
 const { generateToken } = require("../helper/jwt");
-const { decryptPWD } = require("../helper/bcrypt");
+const { encryptPWD, decryptPWD } = require("../helper/bcrypt");
+
 
 class PraktikanController {
   static async getPraktikan(req, res) {
@@ -11,6 +12,15 @@ class PraktikanController {
       res.json(praktikans);
     } catch (err) {
       res.json(err);
+    }
+  }
+
+  static async getById(req, res) {
+    try {
+      let praktikan = await praktikan.findByPk(+req.userData.id)
+      res.status(200).json(praktikan)
+    } catch (e) {
+      res.status(500).json(e)
     }
   }
 
@@ -73,17 +83,17 @@ class PraktikanController {
 
   static async delete(req, res) {
     try {
-      let id = req.params.id;
+
 
       let praktikans = await praktikan.destroy({
         where: {
-          id,
+          id: +req.userData.id,
         },
       });
 
       praktikans === 1
         ? res.status(200).json({ message: "praktikan berhasil di hapus" })
-        : res.json(`${id} not found`);
+        : res.json(`praktikan not found`);
     } catch (err) {
       res.json(err);
     }
@@ -91,24 +101,30 @@ class PraktikanController {
 
   static async update(req, res) {
     try {
-      let id = req.params.id;
       const { nim, nama, jurusan, fakultas, tahun_masuk, status } = req.body;
+      const hashNim = encryptPWD(nim)
+
       let results = await praktikan.update(
         {
-          nim,
+          hashNim,
           nama,
           jurusan,
           fakultas,
           tahun_masuk,
           status,
         },
-        { where: { id } }
+        {
+          where: {
+            id: +req.userData.id
+          }
+        }
       );
+
       results[0] === 1
         ? res.status(200).json({ message: "praktikan berhasil di update" })
         : res.json({
-            message: `praktikan id: ${id} does not exist`,
-          });
+          message: `praktikan does not exist`,
+        });
     } catch (err) {
       res.json(err);
     }
@@ -116,9 +132,9 @@ class PraktikanController {
 
   static async viewMatkul(req, res) {
     try {
-      let id = +req.params.id;
+
       let result = await mataPraktikum.findAll({
-        where: { praktikan_id: id },
+        where: { praktikan_id: +req.userData.id },
         include: [praktikan, mataKuliah],
       });
       let praktikans = await praktikan.findByPk(id);
