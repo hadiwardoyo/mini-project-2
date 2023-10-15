@@ -59,19 +59,19 @@ const ListPraktikan = () => {
                         <td>
                           <Link
                             to={`/praktikan/edit/${id}`}
-                            className="btn btn-sm btn-outline-success"
+                            className="btn btn-sm btn-outline-success me-2"
                           >
                             Edit
                           </Link>
                           <button
                             onClick={() => deleteHandler(+id)}
-                            className="btn btn-sm btn-outline-danger"
+                            className="btn btn-sm btn-outline-danger me-2"
                           >
                             Delete
                           </button>
                           <Link
                             to={`/praktikan/details/${id}`}
-                            className="btn btn-sm btn-outline-warning"
+                            className="btn btn-sm btn-outline-warning me-2"
                           >
                             Detail
                           </Link>
