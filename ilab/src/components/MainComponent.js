@@ -11,6 +11,9 @@ import {
   ListMatakuliah,
   CreateMatakuliah,
   EditMatakuliah,
+  MataPraktikum,
+  ListPraktikum,
+  AddPraktikum,
 } from "../pages";
 
 const MainComponents = (props) => {
@@ -50,6 +53,10 @@ const MainComponents = (props) => {
               element={<EditMatakuliah></EditMatakuliah>}
             ></Route>
           </Route>
+        </Route>
+        <Route path="praktikum" element={<MataPraktikum></MataPraktikum>}>
+          <Route path="" element={<ListPraktikum></ListPraktikum>}></Route>
+          <Route path="create" element={<AddPraktikum></AddPraktikum>}></Route>
         </Route>
       </Routes>
     </>

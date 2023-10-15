@@ -47,18 +47,7 @@ const CreateMatakuliah = () => {
             placeholder="example: teknik industri"
           />
         </div>
-        <div className="mb-3">
-          <label for="formGroupExampleInput" className="form-label">
-            Jurusan
-          </label>
-          <input
-            onChange={handleChange}
-            type="text"
-            className="form-control"
-            name="jurusan"
-            placeholder="Nama Jurusan / Prodi"
-          />
-        </div>
+
         <div className="mb-3">
           <label for="formGroupExampleInput" className="form-label">
             Jurusan
@@ -71,10 +60,12 @@ const CreateMatakuliah = () => {
             name="jurusan"
             placeholder="-"
           >
+            <option selected=""></option>
+
             {jurusan.map((result) => {
               const { nama } = result;
               return (
-                <option onChange={handleChange} value="{nama}">
+                <option onChange={handleChange} value={nama}>
                   {nama}
                 </option>
               );

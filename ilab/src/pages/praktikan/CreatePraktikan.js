@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { addPraktikan } from "../../fetch/praktikanAxios";
 import { useNavigate } from "react-router-dom";
+import { getJurusan } from "../../fetch/jurusan";
 
 const CreatePraktikan = () => {
   const [form, setForm] = useState({
@@ -11,6 +12,14 @@ const CreatePraktikan = () => {
     tahun_masuk: "",
     status: "aktif",
   });
+
+  const [jurusan, setJurusan] = useState([]);
+
+  useEffect(() => {
+    getJurusan((result) => {
+      setJurusan(result);
+    });
+  }, []);
 
   const navigate = useNavigate();
 
@@ -58,13 +67,25 @@ const CreatePraktikan = () => {
           <label for="formGroupExampleInput" className="form-label">
             Jurusan
           </label>
-          <input
+          <select
+            class="form-select"
             onChange={handleChange}
             type="text"
             className="form-control"
             name="jurusan"
-            placeholder="Masukan Jurusan"
-          />
+            placeholder="-"
+          >
+            <option selected=""></option>
+
+            {jurusan.map((result) => {
+              const { nama } = result;
+              return (
+                <option onChange={handleChange} value={nama}>
+                  {nama}
+                </option>
+              );
+            })}
+          </select>
         </div>
         <div className="mb-3">
           <label for="formGroupExampleInput" className="form-label">

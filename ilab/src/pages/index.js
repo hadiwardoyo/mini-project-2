@@ -10,6 +10,10 @@ import ListMatakuliah from "./mataKuliah/ListMatakuliah";
 import CreateMatakuliah from "./mataKuliah/CreateMatakuliah";
 import EditMatakuliah from "./mataKuliah/EditMatakuliah";
 
+import MataPraktikum from "./mataPraktikum/MataPraktikum";
+import ListPraktikum from "./mataPraktikum/ListPraktikum";
+import AddPraktikum from "./mataPraktikum/AddPraktikum";
+
 export {
   LoginPage,
   HomePage,
@@ -21,4 +25,7 @@ export {
   ListMatakuliah,
   CreateMatakuliah,
   EditMatakuliah,
+  MataPraktikum,
+  ListPraktikum,
+  AddPraktikum,
 };
