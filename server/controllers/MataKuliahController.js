@@ -11,6 +11,15 @@ class MataKuliahController {
       res.json(err);
     }
   }
+  static async getById(req, res) {
+    try {
+      const id = +req.params.id;
+      let result = await mataKuliah.findByPk(id);
+      res.status(200).json(result);
+    } catch (e) {
+      res.status(500).json({ message: e.message });
+    }
+  }
 
   static async add(req, res) {
     try {
@@ -20,7 +29,7 @@ class MataKuliahController {
         jurusan,
         jumlah_peserta,
       });
-      res.status(201).json({ message: 'matkul berhasil di tambahkan' })
+      res.status(201).json({ message: "matkul berhasil di tambahkan" });
     } catch (err) {
       res.json(err);
     }
@@ -34,7 +43,9 @@ class MataKuliahController {
         },
       });
 
-      matkuls === 1 ? res.status(200).json({ message: 'matkul berhasil di hapus' }) : res.json(`${id} not found`);
+      matkuls === 1
+        ? res.status(200).json({ message: "matkul berhasil di hapus" })
+        : res.json(`${id} not found`);
     } catch (err) {
       res.json(err);
     }
@@ -55,10 +66,10 @@ class MataKuliahController {
         { where: { id } }
       );
       results[0] === 1
-        ? res.status(200).json({ message: 'matakul berhasil di update' })
+        ? res.status(200).json({ message: "matakul berhasil di update" })
         : res.json({
-          message: `Mata Kuliah id: ${id} does not exist`,
-        });
+            message: `Mata Kuliah id: ${id} does not exist`,
+          });
     } catch (err) {
       res.json(err);
     }

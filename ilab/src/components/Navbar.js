@@ -17,7 +17,11 @@ const Navbar = (props) => {
     <div>
       <div className="Header">
         <div class="header-left">
-          <img src="https://infotech.umm.ac.id/assets/img/logo.png" alt="" />
+          <img
+            src="https://infotech.umm.ac.id/assets/img/logo.png"
+            className="img-fluid"
+            alt="Logo"
+          />
         </div>
         <div class="header-right">
           {!loginStatus ? (
@@ -32,7 +36,7 @@ const Navbar = (props) => {
         </div>
         <ul className="nav justify-content-center nav-underline">
           <li className="nav-item ">
-            <Link className="nav-link" aria-current="page" to="#">
+            <Link className="nav-link active" aria-current="page" to="/">
               HOME
             </Link>
           </li>
@@ -48,7 +52,7 @@ const Navbar = (props) => {
           </li>
           <li className="nav-item">
             <Link className="nav-link" to="#">
-              list praktikum
+              List Praktikum
             </Link>
           </li>
           <div className="nav-item"></div>

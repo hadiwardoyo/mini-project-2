@@ -1,6 +1,7 @@
 import axios from "axios";
 
 const URL = "http://localhost:3000/praktikan";
+import Swal from "sweetalert2";
 
 const access_token = localStorage.getItem("access_token");
 
@@ -55,12 +56,23 @@ const editPraktikan = async (id, form) => {
 
 const deletePraktikan = async (id) => {
   try {
-    let remove = await instanceAxios({
-      method: "DELETE",
-      url: URL + "/delete/" + id,
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        let remove = await instanceAxios({
+          method: "DELETE",
+          url: URL + "/delete/" + id,
+        });
+        Swal.fire("Deleted!", "Your file has been deleted.", "success");
+      }
     });
-
-    console.log(remove);
   } catch (e) {
     console.log(e);
   }

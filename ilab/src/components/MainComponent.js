@@ -7,6 +7,10 @@ import {
   CreatePraktikan,
   EditPraktikan,
   ListPraktikan,
+  MataKuliah,
+  ListMatakuliah,
+  CreateMatakuliah,
+  EditMatakuliah,
 } from "../pages";
 
 const MainComponents = (props) => {
@@ -14,13 +18,9 @@ const MainComponents = (props) => {
 
   return (
     <>
-      <Navbar
-        loginStatus={loginStatus}
-        loginCbHandler={loginCbHandler}
-      ></Navbar>
       <Routes>
         <Route
-          path=""
+          path="/"
           element={
             <HomePage
               loginStatus={loginStatus}
@@ -38,12 +38,20 @@ const MainComponents = (props) => {
             <Route path=":id" element={<EditPraktikan></EditPraktikan>}></Route>
           </Route>
         </Route>
-        {/* <Route path='matkul' element={<MataKuliah></MataKuliah>}>
-                    <Route path='create' element={<CreateMatkul></CreateMatkul>}></Route>
-                    <Route></Route>
-                </Route> */}
+        <Route path="matkul" element={<MataKuliah></MataKuliah>}>
+          <Route path="" element={<ListMatakuliah></ListMatakuliah>}></Route>
+          <Route
+            path="create"
+            element={<CreateMatakuliah></CreateMatakuliah>}
+          ></Route>
+          <Route path="edit">
+            <Route
+              path=":id"
+              element={<EditMatakuliah></EditMatakuliah>}
+            ></Route>
+          </Route>
+        </Route>
       </Routes>
-      <Footer></Footer>
     </>
   );
 };

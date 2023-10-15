@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
+import { Link } from "react-router-dom";
 
 const LoginPage = (props) => {
   const { loginCbHandler } = props;
@@ -11,7 +12,7 @@ const LoginPage = (props) => {
     nim: "",
   });
 
-  console.log(form)
+  console.log(form);
 
   const loginUser = async () => {
     try {
@@ -67,12 +68,13 @@ const LoginPage = (props) => {
               placeholder="Password"
             />
           </div>
-          <button
+          <Link
             onClick={() => submitHandler()}
+            to="/"
             className="btn btn-outline-light "
           >
             Login
-          </button>
+          </Link>
         </div>
       </div>
     </>

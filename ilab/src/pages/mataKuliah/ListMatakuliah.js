@@ -1,21 +1,21 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { getPraktikans, deletePraktikan } from "../../fetch/praktikanAxios";
+import { getMatkuls, deleteMatkul } from "../../fetch/matakuliah";
 import { Loading } from "../../components";
 
 const ListPraktikan = () => {
-  const [praktikans, setPraktikans] = useState([]);
+  const [matkuls, setMatkuls] = useState([]);
 
   useEffect(() => {
-    getPraktikans((result) => {
-      setPraktikans(result);
+    getMatkuls((result) => {
+      setMatkuls(result);
     });
   }, []);
 
   const deleteHandler = (id) => {
-    deletePraktikan(id);
-    const newPraktikan = praktikans.filter((p) => p.id !== id);
-    setPraktikans(newPraktikan);
+    deleteMatkul(id);
+    const newMatkuls = matkuls.filter((p) => p.id !== id);
+    setMatkuls(newMatkuls);
   };
 
   return (
@@ -24,10 +24,10 @@ const ListPraktikan = () => {
         <div className="col-9 mx-auto">
           <div className="w-100">
             <Link
-              to="/praktikan/create"
+              to="/matkul/create"
               className="btn btn-sm btn-outline-primary mb-3"
             >
-              Tambah Praktikan
+              Tambah Mata Kuliah
             </Link>
           </div>
           <div className="w-100">
@@ -35,30 +35,44 @@ const ListPraktikan = () => {
               <thead>
                 <tr>
                   <th>No</th>
-                  <th>Nama</th>
+                  <th>Mata Kuliah</th>
                   <th>Jurusan</th>
-                  <th>Fakultas</th>
-                  <th>Tahun Masuk</th>
-                  <th>Status</th>
-                  <th>Actions</th>
+                  <th>Tahun Semester Akademik</th>
+                  <th>jumlah peserta</th>
+                  <th>Action</th>
                 </tr>
               </thead>
               <tbody>
-                {praktikans.length > 0 ? (
-                  praktikans.map((praktik, index) => {
-                    const { id, nama, jurusan, fakultas, tahun_masuk, status } =
-                      praktik;
+                {matkuls.length > 0 ? (
+                  matkuls.map((matkul, index) => {
+                    const {
+                      id,
+                      nama,
+                      jurusan,
+                      tahun_akademik,
+                      semester_akademik,
+                      jumlah_peserta,
+                    } = matkul;
                     return (
                       <tr key={id}>
                         <td>{index + 1}</td>
                         <td>{nama}</td>
                         <td>{jurusan}</td>
-                        <td>{fakultas}</td>
-                        <td>{tahun_masuk}</td>
-                        <td>{status}</td>
+                        <td>
+                          <div className="row">
+                            <div className="col-9">
+                              <h5>{tahun_akademik}</h5>
+                              <small className="badge bg-info">
+                                {semester_akademik}
+                              </small>
+                            </div>
+                          </div>
+                        </td>
+                        <td>{jumlah_peserta}</td>
+
                         <td>
                           <Link
-                            to={`/praktikan/edit/${id}`}
+                            to={`/matkul/edit/${id}`}
                             className="btn btn-sm btn-outline-success"
                           >
                             Edit
@@ -69,12 +83,6 @@ const ListPraktikan = () => {
                           >
                             Delete
                           </button>
-                          <Link
-                            to={`#`}
-                            className="btn btn-sm btn-outline-warning"
-                          >
-                            Detail
-                          </Link>
                         </td>
                       </tr>
                     );

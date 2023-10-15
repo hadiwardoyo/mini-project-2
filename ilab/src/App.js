@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.css";
 import { LoginPage, HomePage } from "./pages";
-import { MainComponents } from "./components";
+import { MainComponents, Navbar, Footer } from "./components";
 
 function App() {
   const [loginStatus, setloginStatus] = useState(false);
@@ -33,6 +33,7 @@ function App() {
             loginStatus={loginStatus}
             loginCbHandler={loginCbHandler}
           ></MainComponents>
+          <Footer></Footer>
         </>
       )}
     </div>

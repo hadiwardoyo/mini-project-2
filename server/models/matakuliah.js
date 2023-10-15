@@ -41,7 +41,7 @@ module.exports = (sequelize, DataTypes) => {
         beforeCreate: function (mataKuliah, option) {
           mataKuliah.tahun_akademik = "2023/2024";
           mataKuliah.semester_akademik = "Ganjil";
-          // mataKuliah.jumlah_peserta = null;
+          mataKuliah.jumlah_peserta = 0;
         },
       },
       sequelize,

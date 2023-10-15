@@ -1,4 +1,5 @@
 import axios from "axios";
+import Swal from "sweetalert2";
 
 const URL = "http://localhost:3000/mataKuliah";
 
@@ -14,9 +15,9 @@ const instanceAxios = axios.create({
 
 const getMatkuls = async (cb) => {
   try {
-    let matkuls = await axios({
+    let matkuls = await instanceAxios({
       method: "GET",
-      url: URL,
+      url: URL + "/data",
     });
     cb(matkuls.data);
   } catch (e) {
@@ -26,9 +27,9 @@ const getMatkuls = async (cb) => {
 
 const addMatkul = async (form) => {
   try {
-    let matkul = await axios({
+    let matkul = await instanceAxios({
       method: "POST",
-      url: URL,
+      url: URL + "/add",
       data: form,
     });
 
@@ -40,7 +41,7 @@ const addMatkul = async (form) => {
 
 const editMatkul = async (id, form) => {
   try {
-    let updated = await axios({
+    let updated = await instanceAxios({
       method: "PUT",
       url: URL + "/update/" + id,
       data: form,
@@ -54,15 +55,39 @@ const editMatkul = async (id, form) => {
 
 const deleteMatkul = async (id) => {
   try {
-    let remove = await axios({
-      method: "DELETE",
-      url: URL + "/delete/" + id,
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        let remove = await instanceAxios({
+          method: "DELETE",
+          url: URL + "/delete/" + id,
+        });
+        Swal.fire("Deleted!", "Your file has been deleted.", "success");
+      }
     });
-
-    console.log(remove);
   } catch (e) {
     console.log(e);
   }
 };
 
-export { getMatkuls, editMatkul, addMatkul, deleteMatkul };
+const findById = async (id, cb) => {
+  try {
+    let matkul = await instanceAxios({
+      method: "GET",
+      url: URL + "/details/" + id,
+    });
+    cb(matkul.data);
+    console.log();
+  } catch (e) {
+    console.log(e.response);
+  }
+};
+
+export { getMatkuls, editMatkul, addMatkul, deleteMatkul, findById };

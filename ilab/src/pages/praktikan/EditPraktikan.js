@@ -21,7 +21,7 @@ const EditPraktikan = () => {
       setForm({
         nim: result.nim,
         nama: result.nama,
-        jurusan: result.fakultas,
+        jurusan: result.jurusan,
         fakultas: result.fakultas,
         tahun_masuk: result.tahun_masuk,
         status: result.status,
@@ -41,7 +41,8 @@ const EditPraktikan = () => {
 
   return (
     <>
-      <div className="p-3">
+      <div className="container p-3">
+        <h2 className="text-center">Edit Praktikan</h2>
         <div className="mb-3">
           <label for="formGroupExampleInput" className="form-label">
             Nim
@@ -107,18 +108,30 @@ const EditPraktikan = () => {
             placeholder="Tahun Masuk"
           />
         </div>
+
         <div className="mb-3">
           <label for="formGroupExampleInput" className="form-label">
             Status
           </label>
-          <input
-            value={form.status}
+          <select
+            class="form-select"
             onChange={handleChange}
             type="text"
             className="form-control"
             name="status"
-            placeholder="Status"
-          />
+            placeholder="user/admin"
+          >
+            <option selected>{form.status}</option>
+            <option onChange={handleChange} value="Aktif">
+              Aktif
+            </option>
+            <option onChange={handleChange} value="Non Aktif">
+              Non Aktif
+            </option>
+            <option onChange={handleChange} value="Lulus">
+              Lulus
+            </option>
+          </select>
         </div>
         <div className="mb-3">
           <label for="formGroupExampleInput" className="form-label">
