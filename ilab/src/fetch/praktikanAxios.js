@@ -91,10 +91,25 @@ const findById = async (id, cb) => {
   }
 };
 
+const getDataMatkul = async (id, cb) => {
+  try {
+    let praktikan = await instanceAxios({
+      method: 'GET',
+      url: URL + '/' + id + '/' + 'matkul'
+
+    })
+
+    cb(praktikan.data.praktikans)
+  } catch (e) {
+    console.log(e.response)
+  }
+}
+
 export {
   getPraktikans,
   addPraktikan,
   editPraktikan,
   deletePraktikan,
   findById,
+  getDataMatkul
 };

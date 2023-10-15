@@ -70,7 +70,7 @@ const ListPraktikan = () => {
                             Delete
                           </button>
                           <Link
-                            to={`#`}
+                            to={`/praktikan/details/${id}`}
                             className="btn btn-sm btn-outline-warning"
                           >
                             Detail

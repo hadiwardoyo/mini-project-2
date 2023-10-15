@@ -2,7 +2,7 @@
   "development": {
     "username": "postgres",
     "password": "admin",
-    "database": "mini-project-2",
+    "database": "mini-project-m2m",
     "host": "127.0.0.1",
     "dialect": "postgres"
   },

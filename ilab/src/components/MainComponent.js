@@ -7,6 +7,7 @@ import {
   CreatePraktikan,
   EditPraktikan,
   ListPraktikan,
+  Details,
   MataKuliah,
   ListMatakuliah,
   CreateMatakuliah,
@@ -39,6 +40,9 @@ const MainComponents = (props) => {
           ></Route>
           <Route path="edit">
             <Route path=":id" element={<EditPraktikan></EditPraktikan>}></Route>
+          </Route>
+          <Route path="details">
+            <Route path=":id" element={<Details></Details>}></Route>
           </Route>
         </Route>
         <Route path="matkul" element={<MataKuliah></MataKuliah>}>
