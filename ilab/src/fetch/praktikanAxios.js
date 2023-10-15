@@ -1,86 +1,81 @@
-import axios from 'axios'
+import axios from "axios";
 
-const URL = 'http://localhost:3000/praktikan'
+const URL = "http://localhost:3000/praktikan";
 
-const access_token = localStorage.getItem('access_token')
+const access_token = localStorage.getItem("access_token");
 
 const instanceAxios = axios.create({
-    baseURL: URL,
-    headers: {
-        'Authorization': `Bearer ${access_token}`,
-        'Content-Type': 'application/json'
-    }
-})
+  baseURL: URL,
+  headers: {
+    access_token: `${access_token}`,
+    "Content-Type": "application/json",
+  },
+});
 
 const getPraktikans = async (cb) => {
-    try {
-        let praktikans = await instanceAxios({
-            method: 'GET',
-            url: URL
-        })
+  try {
+    let praktikans = await instanceAxios({
+      method: "GET",
+      url: URL + "/data",
+    });
 
-        cb(praktikans.data)
-    } catch (e) {
-        console.log(e)
-    }
-}
+    cb(praktikans.data);
+  } catch (e) {
+    console.log(e);
+  }
+};
 
 const addPraktikan = async (form) => {
-    try {
-        let praktikan = await instanceAxios({
-            method: 'POST',
-            url: URL + '/add',
-            data: form
-        })
+  try {
+    let praktikan = await instanceAxios({
+      method: "POST",
+      url: URL + "/add",
+      data: form,
+    });
 
-        console.log(praktikan.data)
-    } catch (e) {
-        console.log(e)
-    }
-}
+    console.log(praktikan.data);
+  } catch (e) {
+    console.log(e);
+  }
+};
 
 const editPraktikan = async (id, form) => {
-    try {
-        let updated = await instanceAxios({
-            method: 'PUT',
-            url: URL + '/update/' + id,
-            data: form
-        })
+  try {
+    let updated = await instanceAxios({
+      method: "PUT",
+      url: URL + "/update/" + id,
+      data: form,
+    });
 
-        console.log(updated)
-    } catch (e) {
-        console.log(e)
-    }
-}
+    console.log(updated);
+  } catch (e) {
+    console.log(e);
+  }
+};
 
 const deletePraktikan = async (id) => {
-    try {
-        let remove = await instanceAxios({
-            method: 'DELETE',
-            url: URL + '/delete/' + id,
-        })
+  try {
+    let remove = await instanceAxios({
+      method: "DELETE",
+      url: URL + "/delete/" + id,
+    });
 
-        console.log(remove)
-    } catch (e) {
-        console.log(e)
-    }
-}
+    console.log(remove);
+  } catch (e) {
+    console.log(e);
+  }
+};
 
 const findById = async (cb) => {
-    try {
-        let praktikan = await instanceAxios({
-            method: 'GET',
-            url: URL + '/details',
-        })
-        cb(praktikan.data)
-    } catch (e) {
-        console.log(e)
-    }
-}
+  try {
+    let praktikan = await instanceAxios({
+      method: "GET",
+      url: URL + "/details",
+    });
+    cb(praktikan.data);
+  } catch (e) {
+    console.log(e);
+  }
+};
 
-export {
-    getPraktikans,
-    addPraktikan,
-    editPraktikan,
-    deletePraktikan
-}
+export { getPraktikans, addPraktikan, editPraktikan, deletePraktikan };

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.css";
 import { LoginPage } from "./pages";
-import { MainComponents } from "./components";
+import { MainComponents, Navbar } from "./components";
 
 function App() {
   const [loginStatus, setloginStatus] = useState(false);
@@ -24,8 +24,16 @@ function App() {
       {!loginStatus ? (
         <LoginPage loginCbHandler={loginCbHandler}></LoginPage>
       ) : (
-        <MainComponents loginStatus={loginStatus}
-          loginCbHandler={loginCbHandler}></MainComponents>
+        <>
+          <Navbar
+            loginStatus={loginStatus}
+            loginCbHandler={loginCbHandler}
+          ></Navbar>
+          <MainComponents
+            loginStatus={loginStatus}
+            loginCbHandler={loginCbHandler}
+          ></MainComponents>
+        </>
       )}
     </div>
   );

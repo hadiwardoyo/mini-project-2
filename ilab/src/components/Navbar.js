@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
 const Navbar = (props) => {
   const { loginStatus, loginCbHandler } = props;
@@ -31,24 +32,24 @@ const Navbar = (props) => {
         </div>
         <ul className="nav justify-content-center nav-underline">
           <li className="nav-item ">
-            <a className="nav-link" aria-current="page" href="#">
+            <Link className="nav-link" aria-current="page" to="#">
               HOME
-            </a>
+            </Link>
           </li>
           <li className="nav-item">
-            <a className="nav-link" href="#">
+            <Link className="nav-link" to="/praktikan">
               Praktikan
-            </a>
+            </Link>
           </li>
           <li className="nav-item">
-            <a className="nav-link" href="#">
+            <Link className="nav-link" to="/matkul">
               Mata Kuliah
-            </a>
+            </Link>
           </li>
           <li className="nav-item">
-            <a className="nav-link" href="#">
+            <Link className="nav-link" to="#">
               list praktikum
-            </a>
+            </Link>
           </li>
           <div className="nav-item"></div>
         </ul>

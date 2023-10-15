@@ -52,11 +52,11 @@ const LoginPage = (props) => {
               onChange={(e) => setForm({ ...form, nama: e.target.value })}
               type="text"
               class="form-control"
-              placeholder="nama anda"
+              placeholder="Nama Anda"
             />
           </div>
           <div class="form-floating-lg mb-2">
-            <label for="floatingPassword">Password</label>
+            <label for="floatingPassword">Password / NIM</label>
 
             <input
               onChange={(e) => setForm({ ...form, nim: e.target.value })}
@@ -65,7 +65,10 @@ const LoginPage = (props) => {
               placeholder="Password"
             />
           </div>
-          <button onClick={() => submitHandler()} className="btn btn-info ">
+          <button
+            onClick={() => submitHandler()}
+            className="btn btn-outline-light "
+          >
             Login
           </button>
         </div>
