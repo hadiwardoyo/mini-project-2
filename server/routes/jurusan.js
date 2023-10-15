@@ -1,11 +1,12 @@
 const jurusanRoute = require("express").Router();
 const { JurusanController } = require("../controllers");
+const { verifyToken } = require('../middleware/authentication')
 
-jurusanRoute.get("/data", JurusanController.getJurusan);
+jurusanRoute.get("/data", verifyToken, JurusanController.getJurusan);
 
-jurusanRoute.post("/add", JurusanController.add);
+jurusanRoute.post("/add", verifyToken, JurusanController.add);
 
-jurusanRoute.delete("/delete/:id", JurusanController.delete);
+jurusanRoute.delete("/delete/:id", verifyToken, JurusanController.delete);
 
-jurusanRoute.put("/update/:id", JurusanController.update);
+jurusanRoute.put("/update/:id", verifyToken, JurusanController.update);
 module.exports = jurusanRoute;

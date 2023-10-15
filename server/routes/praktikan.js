@@ -12,8 +12,8 @@ praktikanRoute.post("/add", PraktikanController.add);
 
 praktikanRoute.delete("/delete/:id", verifyToken, PraktikanController.delete);
 
-praktikanRoute.put("/update", verifyToken, PraktikanController.update);
+praktikanRoute.put("/update/:id", verifyToken, PraktikanController.update);
 
-praktikanRoute.get("/matkul", verifyToken, PraktikanController.viewMatkul);
+praktikanRoute.get("/:id/matkul", verifyToken, PraktikanController.viewMatkul);
 
 module.exports = praktikanRoute;

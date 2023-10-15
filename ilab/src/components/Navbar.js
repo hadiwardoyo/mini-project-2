@@ -31,12 +31,12 @@ const Navbar = (props) => {
         </div>
         <ul className="nav justify-content-center nav-underline">
           <li className="nav-item ">
-            <a className="nav-link" aria-current="page" href="#">
+            <a className="nav-link" aria-current="page" href="/">
               HOME
             </a>
           </li>
           <li className="nav-item">
-            <a className="nav-link" href="#">
+            <a className="nav-link" href="/praktikan">
               Praktikan
             </a>
           </li>

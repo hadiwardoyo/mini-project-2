@@ -3,11 +3,12 @@ import axios from 'axios'
 const URL = 'http://localhost:3000/praktikan'
 
 const access_token = localStorage.getItem('access_token')
+console.log(access_token)
 
 const instanceAxios = axios.create({
     baseURL: URL,
     headers: {
-        'Authorization': `Bearer ${access_token}`,
+        'access_token': `${access_token}`,
         'Content-Type': 'application/json'
     }
 })
@@ -16,12 +17,12 @@ const getPraktikans = async (cb) => {
     try {
         let praktikans = await instanceAxios({
             method: 'GET',
-            url: URL
+            url: URL + '/data'
         })
-
+        console.log(praktikans.data)
         cb(praktikans.data)
     } catch (e) {
-        console.log(e)
+        console.log(e.response)
     }
 }
 
@@ -82,5 +83,6 @@ export {
     getPraktikans,
     addPraktikan,
     editPraktikan,
-    deletePraktikan
+    deletePraktikan,
+    findById
 }

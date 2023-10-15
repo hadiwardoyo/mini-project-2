@@ -1,0 +1,10 @@
+@import url("https://fonts.googleapis.com/css2?family=Carter+One&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Nunito+Sans&display=swap");
+
+:root{
+    --ff-primary: 'Nunito Sans', sans-serif;
+}
+
+.img-tech{
+    padding: 2rem;
+}

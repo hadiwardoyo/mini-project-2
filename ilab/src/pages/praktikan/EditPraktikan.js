@@ -1,17 +1,10 @@
-import React, { useState } from 'react'
-import { addPraktikan } from '../../fetch/praktikanAxios'
+import React, { useState, useEffect } from 'react'
+import { editPraktikan, findById } from '../../fetch/praktikanAxios'
 import { useNavigate } from 'react-router-dom'
 
-const CreatePraktikan = () => {
+const EditPraktikan = () => {
 
-    const [form, setForm] = useState({
-        nim: '',
-        nama: '',
-        jurusan: '',
-        fakultas: '',
-        tahun_masuk: '',
-        status: 'aktif'
-    })
+    const [form, setForm] = useState({})
 
     const navigate = useNavigate()
 
@@ -22,8 +15,25 @@ const CreatePraktikan = () => {
         })
     }
 
+    const getInfo = () => {
+        findById(result => {
+            setForm({
+                nim: result.nim,
+                nama: result.nama,
+                jurusan: result.fakultas,
+                fakultas: result.fakultas,
+                tahun_masuk: result.tahun_masuk,
+                status: result.status
+            })
+        })
+    }
+
+    useEffect(() => {
+        getInfo()
+    }, [])
+
     const handleSubmit = () => {
-        addPraktikan(form)
+        editPraktikan(form)
         navigate('/praktikan')
     }
 
@@ -33,34 +43,42 @@ const CreatePraktikan = () => {
                 <div className="mb-3">
                     <label for="formGroupExampleInput" className="form-label">Nim</label>
                     <input
+                        value={form.nim}
                         onChange={handleChange}
                         type="text" className="form-control" name='nim' placeholder="Contoh: 123890334" />
                 </div>
                 <div className="mb-3">
                     <label for="formGroupExampleInput" className="form-label">Nama</label>
                     <input
+                        value={form.nama}
                         onChange={handleChange}
                         type="text" className="form-control" name='nama' placeholder="Masukan Nama Anda" />
                 </div>
                 <div className="mb-3">
                     <label for="formGroupExampleInput" className="form-label">Jurusan</label>
-                    <input type="text" className="form-control" name='jurusan' placeholder="Masukan Jurusan" />
+                    <input
+                        value={form.jurusan}
+                        onChange={handleChange}
+                        type="text" className="form-control" name='jurusan' placeholder="Masukan Jurusan" />
                 </div>
                 <div className="mb-3">
                     <label for="formGroupExampleInput" className="form-label">Fakultas</label>
                     <input
+                        value={form.fakultas}
                         onChange={handleChange}
                         type="text" className="form-control" name='fakultas' placeholder="Fakultas" />
                 </div>
                 <div className="mb-3">
                     <label for="formGroupExampleInput" className="form-label">Tahun Masuk</label>
                     <input
+                        value={form.tahun_masuk}
                         onChange={handleChange}
                         type="text" className="form-control" name='tahun_masuk' placeholder="Tahun Masuk" />
                 </div>
                 <div className="mb-3">
                     <label for="formGroupExampleInput" className="form-label">Status</label>
                     <input
+                        value={form.status}
                         onChange={handleChange}
                         type="text" className="form-control" name='status' placeholder="Status" />
                 </div>
@@ -74,4 +92,4 @@ const CreatePraktikan = () => {
     )
 }
 
-export default CreatePraktikan
+export default EditPraktikan

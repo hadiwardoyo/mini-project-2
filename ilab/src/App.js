@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.css";
-import { LoginPage } from "./pages";
+import { LoginPage, HomePage } from "./pages";
 import { MainComponents } from "./components";
 
 function App() {
@@ -24,6 +24,7 @@ function App() {
       {!loginStatus ? (
         <LoginPage loginCbHandler={loginCbHandler}></LoginPage>
       ) : (
+
         <MainComponents loginStatus={loginStatus}
           loginCbHandler={loginCbHandler}></MainComponents>
       )}
