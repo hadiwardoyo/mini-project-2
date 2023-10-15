@@ -3,7 +3,7 @@ import React from 'react'
 const Footer = () => {
     return (
         <>
-            <div class="card text-center">
+            <div class="card text-center fixed-bottom">
                 <div class="card-header">
                     Footer
                 </div>

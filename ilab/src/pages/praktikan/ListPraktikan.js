@@ -54,7 +54,7 @@ const ListPraktikan = () => {
                                                     <td>{tahun_masuk}</td>
                                                     <td>{status}</td>
                                                     <td>
-                                                        <Link to={`/praktikan/update/`} className='btn btn-sm btn-outline-success'>Edit</Link>
+                                                        <Link to={`/praktikan/edit/${id}`} className='btn btn-sm btn-outline-success'>Edit</Link>
                                                         <button
                                                             onClick={() => deleteHandler(+id)}
                                                             className='btn btn-sm btn-outline-danger'

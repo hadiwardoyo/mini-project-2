@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react'
 import { editPraktikan, findById } from '../../fetch/praktikanAxios'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 
 const EditPraktikan = () => {
 
     const [form, setForm] = useState({})
 
     const navigate = useNavigate()
+    const params = useParams()
 
     const handleChange = (e) => {
         const { name, value } = e.target
@@ -16,14 +17,16 @@ const EditPraktikan = () => {
     }
 
     const getInfo = () => {
-        findById(result => {
+        // const { id } = params
+        findById(+params.id, result => {
             setForm({
                 nim: result.nim,
                 nama: result.nama,
                 jurusan: result.fakultas,
                 fakultas: result.fakultas,
                 tahun_masuk: result.tahun_masuk,
-                status: result.status
+                status: result.status,
+                role: result.role
             })
         })
     }
@@ -33,7 +36,7 @@ const EditPraktikan = () => {
     }, [])
 
     const handleSubmit = () => {
-        editPraktikan(form)
+        editPraktikan(+params.id, form)
         navigate('/praktikan')
     }
 
@@ -73,7 +76,7 @@ const EditPraktikan = () => {
                     <input
                         value={form.tahun_masuk}
                         onChange={handleChange}
-                        type="text" className="form-control" name='tahun_masuk' placeholder="Tahun Masuk" />
+                        type="number" className="form-control" name='tahun_masuk' placeholder="Tahun Masuk" />
                 </div>
                 <div className="mb-3">
                     <label for="formGroupExampleInput" className="form-label">Status</label>
@@ -82,10 +85,17 @@ const EditPraktikan = () => {
                         onChange={handleChange}
                         type="text" className="form-control" name='status' placeholder="Status" />
                 </div>
+                <div className="mb-3">
+                    <label for="formGroupExampleInput" className="form-label">Role</label>
+                    <input
+                        value={form.role}
+                        onChange={handleChange}
+                        type="text" className="form-control" name='role' placeholder="user/admin" />
+                </div>
                 <div>
                     <button
                         onClick={() => handleSubmit()}
-                        className='btn btn-outline-primary'>Tambah Praktikan</button>
+                        className='btn btn-outline-primary'>Simpan Perubahan</button>
                 </div>
             </div>
         </>

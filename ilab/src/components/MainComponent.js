@@ -20,7 +20,9 @@ const MainComponents = (props) => {
                 <Route path='praktikan' element={<Praktikan></Praktikan>}>
                     <Route path='' element={<ListPraktikan></ListPraktikan>}></Route>
                     <Route path='create' element={<CreatePraktikan></CreatePraktikan>}></Route>
-                    <Route path='edit' element={<EditPraktikan></EditPraktikan>}></Route>
+                    <Route path='edit' >
+                        <Route path=':id' element={<EditPraktikan></EditPraktikan>}></Route>
+                    </Route>
                 </Route>
                 {/* <Route path='matkul' element={<MataKuliah></MataKuliah>}>
                     <Route path='create' element={<CreateMatkul></CreateMatkul>}></Route>
